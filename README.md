@@ -16,7 +16,7 @@ member:   NVIDIA Inception
 
 #### Now
 
-**`toolwall` v0.2** — a detector for indirect prompt injection at the tool-response boundary: regex rules plus a fine-tuned DeBERTa-v3 classifier. On InjecAgent cases with unseen tools *and* unseen attacker instructions it blocks all 190 attacks, with no false positives on 150 benign twins or 296 workplace emails. On BIPIA, run once after the model was frozen, it catches only 8 of 150 attacks. Both results are in the [5-page technical report](https://github.com/bryteai/toolwall/blob/main/paper/toolwall-v0.2-report.pdf).
+**`toolwall` v0.2** — a detector for indirect prompt injection at the tool-response boundary: regex rules plus a fine-tuned DeBERTa-v3 classifier. On InjecAgent cases with unseen tools *and* unseen attacker instructions it blocks all 95 attacks in both of InjecAgent's settings, with no false positives on 150 benign twins or 296 workplace emails. On BIPIA, run once after the model was frozen, it catches only 8 of 150 attacks. Both results are in the [5-page technical report](https://github.com/bryteai/toolwall/blob/main/paper/toolwall-v0.2-report.pdf).
 
 #### Recent
 
