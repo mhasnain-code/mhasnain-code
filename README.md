@@ -16,21 +16,21 @@ member:   NVIDIA Inception
 
 #### Now
 
-Shipping **`toolwall` v0.1** — a 4-LoC defence that drops attack success rate from **100 % → 9.7 %** on a 200-case in-house bench (rules + LoRA judge), with **93.3 %** utility preserved. Apache-2.0, MCP-native, five framework adapters.
+**`toolwall` v0.2** — a detector for indirect prompt injection at the tool-response boundary: regex rules plus a fine-tuned DeBERTa-v3 classifier. On InjecAgent cases with unseen tools *and* unseen attacker instructions it blocks all 190 attacks, with no false positives on 150 benign twins or 296 workplace emails. On BIPIA, run once after the model was frozen, it catches only 8 of 150 attacks. Both results are in the [5-page technical report](https://github.com/bryteai/toolwall/blob/main/paper/toolwall-v0.2-report.pdf).
 
 #### Recent
 
-- **LoRA judge** on `Qwen/Qwen2.5-7B-Instruct` (Apache-2.0 substitute for the gated Llama base), trained on Modal A10G. Full rationale + dev-saturation disclosure in the model card.
-- **`toolwall-bench-v0.1`** — 200 in-house cases across 7 attack families (base64, full-schema poisoning, markdown-exfil, multi-hop, rug-pull, tool-poisoning, unicode-tag), SHA256-pinned at release.
-- **TypeScript port** `@bryteai/toolwall-core` — feature-parity with the Python core, ≤30 KB minified.
-- **`create-toolwall-worker`** CLI scaffolds a Cloudflare Workers MCP server with OAuth 2.1 + KV audit log + Durable Object sessions, pre-wired with `policy.mcp()`.
+- Found that the v0.1 judge (LoRA on Qwen2.5-7B) did not generalise: on external data it blocked 98 % of random Wikipedia pages. Replaced it and published why.
+- Trained [`bryteai/toolwall-judge-v0.2`](https://huggingface.co/bryteai/toolwall-judge-v0.2) under a split-by-tool × split-by-instruction protocol; removed a container shortcut found during development.
+- Published every test set, seed and per-row decision; each test file rebuilds byte for byte.
+- Next: a task-aware judge that also sees the user's request, aimed at the BIPIA attacks v0.2 misses.
 
 #### Reach
 
 - web — [bryteai.studio](https://bryteai.studio)
 - mail — `hasnain@bryteai.studio`
-- security — `security@bryteai.studio` (90-day coordinated disclosure)
+- security — [private vulnerability report on toolwall](https://github.com/bryteai/toolwall/security/advisories/new)
 
 ---
 
-> I publish what I hit. Honest negative results stay published. No number is adjusted after the fact.
+> I publish what I hit. Negative results stay published, and when a fix is made after seeing test results, I say so.
